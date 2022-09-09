@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Tnf.EntityFrameworkCore" Version="3.11.0.25203" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BlogManager.Domain\BlogManager.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
