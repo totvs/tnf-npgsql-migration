@@ -14,6 +14,9 @@ namespace BlogManager.EFCore
         public DbSet<Author> Authors { get; set; }
         public DbSet<BlogAuthor> BlogAuthors { get; set; }
 
+        public DbSet<AuthorMetrics> AuthorMetrics { get; set; }
+        public DbSet<BlogPostMetrics> BlogPostMetrics { get; set; }
+
         public BlogDbContext(DbContextOptions<BlogDbContext> options, ITnfSession session)
             : base(options, session)
         {
@@ -31,11 +34,17 @@ namespace BlogManager.EFCore
             modelBuilder.Entity<Author>(builder =>
             {
                 builder.HasKey(p => p.Id);
+
+                builder.Property(p => p.Ranking)
+                    .HasDefaultValue(-1);
             });
 
             modelBuilder.Entity<BlogPost>(builder =>
             {
                 builder.HasKey(p => p.Id);
+
+                builder.Property(p => p.IsPublic)
+                    .HasDefaultValue(true);
 
                 builder.HasOne(p => p.Blog)
                     .WithMany()
@@ -57,6 +66,33 @@ namespace BlogManager.EFCore
                 builder.HasOne(p => p.Author)
                     .WithMany()
                     .HasForeignKey(p => p.AuthorId);
+            });
+
+            modelBuilder.Entity<AuthorMetrics>(builder =>
+            {
+                builder.HasKey(p => p.Id);
+
+                builder.HasOne(p => p.Author)
+                    .WithMany()
+                    .HasForeignKey(p => p.AuthorId);
+
+                builder.Property(p => p.AverageWordsPerPost)
+                    .HasColumnName("AvgWordsPerPost");
+
+                builder.Property(p => p.AveragePostsPerMonth)
+                    .HasColumnName("AvgPostsPerMonth");
+            });
+
+            modelBuilder.Entity<BlogPostMetrics>(builder =>
+            {
+                builder.HasKey(p => p.Id);
+
+                builder.HasOne(p => p.Post)
+                    .WithMany()
+                    .HasForeignKey(p => p.PostId);
+
+                builder.Property(p => p.AverageViewCountPerDay)
+                    .HasColumnName("AvgViewCountPerDay");
             });
         }
     }

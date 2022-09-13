@@ -9,7 +9,6 @@ namespace BlogManager.Domain
         public DateTimeOffset PublishDate { get; set; }
         public TimeSpan? ReadTime { get; set; }
         public bool IsPublic { get; set; }
-        public long ViewCount { get; set; }
 
         public int BlogId { get; set; }
         public Blog Blog { get; set; }

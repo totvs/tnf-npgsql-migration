@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.28">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.18" />
+    <PackageReference Include="Tnf.Drivers.DevartPostgreSQL" Version="3.11.0.25203" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BlogManager.EFCore\BlogManager.EFCore.csproj" />
   </ItemGroup>
 
