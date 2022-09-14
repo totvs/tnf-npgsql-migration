@@ -3,7 +3,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-using Tnf.Drivers.DevartPostgreSQL;
 using Tnf.Runtime.Session;
 
 namespace BlogManager.EFCore.PostgreSql
@@ -14,9 +13,8 @@ namespace BlogManager.EFCore.PostgreSql
         {
             var builder = new DbContextOptionsBuilder<BlogDbContext>();
 
-            var connectionString = "Server=127.0.0.1;Port=5432;Database=BlogManager;User ID=postgres;password=admin;Unicode=true;";
-            builder.UsePostgreSql(connectionString);
-            PostgreSqlLicense.Validate(connectionString);
+            var connectionString = "Host=127.0.0.1;Port=5432;Database=BlogManager_Migrated;User ID=postgres;password=admin;";
+            builder.UseNpgsql(connectionString);
 
             return new PostgreSqlBlogDbContext(builder.Options, NullTnfSession.Instance);
         }

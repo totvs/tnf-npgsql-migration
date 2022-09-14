@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
 namespace BlogManager.EFCore.PostgreSql.Migrations
 {
     public partial class AddingBlogRatings : Migration
@@ -10,8 +12,9 @@ namespace BlogManager.EFCore.PostgreSql.Migrations
                 name: "BlogRatings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    StarRating = table.Column<decimal>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    StarRating = table.Column<decimal>(type: "numeric", nullable: false),
                     BlogId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

@@ -1,27 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace BlogManager.EFCore.PostgreSql.Migrations
+namespace BlogManager.EFCore.PostgreSql.Recover.Scaffold_PostgreSqlBlogDbContext.Migrations
 {
-    public partial class DropBlogRatingsTable : Migration
+    public partial class AddingBlogRatings : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "BlogRatings");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "BlogRatings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    BlogId = table.Column<int>(type: "integer", nullable: false),
-                    StarRating = table.Column<decimal>(type: "numeric", nullable: false)
+                    StarRating = table.Column<decimal>(type: "numeric", nullable: false),
+                    BlogId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,6 +31,12 @@ namespace BlogManager.EFCore.PostgreSql.Migrations
                 name: "IX_BlogRatings_BlogId",
                 table: "BlogRatings",
                 column: "BlogId");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "BlogRatings");
         }
     }
 }

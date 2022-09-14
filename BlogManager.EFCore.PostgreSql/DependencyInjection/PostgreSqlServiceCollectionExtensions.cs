@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddTnfDbContext<BlogDbContext, PostgreSqlBlogDbContext>(conf =>
             {
-                conf.DbContextOptions.UsePostgreSql(conf.ConnectionString);
+                conf.DbContextOptions.UseNpgsql(conf.ConnectionString);
             });
 
             return services;

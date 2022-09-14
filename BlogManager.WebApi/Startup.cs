@@ -31,8 +31,6 @@ namespace BlogManager.WebApi
             services.AddTnfAspNetCore(tnf =>
             {
                 tnf.DefaultConnectionString(Configuration.GetConnectionString("PostgreSql"));
-
-                tnf.EnableDevartPostgreSQLDriver();
             });
 
             services.AddPostgreSqlEFCore();

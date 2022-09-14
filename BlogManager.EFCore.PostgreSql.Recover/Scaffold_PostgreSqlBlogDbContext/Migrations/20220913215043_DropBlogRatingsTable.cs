@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace BlogManager.EFCore.PostgreSql.Migrations
+namespace BlogManager.EFCore.PostgreSql.Recover.Scaffold_PostgreSqlBlogDbContext.Migrations
 {
     public partial class DropBlogRatingsTable : Migration
     {
