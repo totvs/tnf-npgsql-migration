@@ -16,9 +16,4 @@
     <ProjectReference Include="..\BlogManager.EFCore.PostgreSql\BlogManager.EFCore.PostgreSql.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-
 </Project>
