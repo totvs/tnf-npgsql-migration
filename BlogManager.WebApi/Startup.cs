@@ -1,3 +1,5 @@
+﻿using BlogManager.WebApi.HostedServices;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,16 @@ namespace BlogManager.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTnfAspNetCore(tnf =>
+            {
+                tnf.DefaultConnectionString(Configuration.GetConnectionString("PostgreSql"));
+
+                tnf.EnableDevartPostgreSQLDriver();
+            });
+
+            services.AddPostgreSqlEFCore();
+            services.AddHostedService<MigratorService>();
+
             services.AddControllers();
         }
 
