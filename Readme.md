@@ -10,7 +10,25 @@ Neste repositório temos uma aplicação que vai servir de exemplo de migração
 
 Vamos entender o que é necessário fazer para migrar do provider da Devart para o da Npgsql.
 
-Um dos maiores trabalhos que teremos nessa migração serão as próprias migrações de banco de dados do EF Core. Então vamos investir um tempo para entender melhor como elas funcionam.
+> Atenção! Esse processo deve ser feito enquanto a sua aplicação ainda está no framework 3.1 (`netcoreapp3.1`).
+
+O primeiro passo seria nos registros dos DbContext da aplicação, mudar a chamada de `UsePostgreSql` para um `UseNgpsql`.
+
+```c#
+services.AddTnfDbContext<BlogDbContext, PostgreSqlBlogDbContext>(conf =>
+{
+    //conf.DbContextOptions.UsePostgreSql(conf.ConnectionString);
+    conf.DbContextOptions.UseNpgsql(conf.ConnectionString);
+});
+```
+
+Porém não é tão simples assim. As migrações da sua aplicação são feitas especificamente para o provider de Devart. Isso não seria um problema se as migrações do passado nunca tivesse que ser executadas novamente, mas isso não é uma verdade.
+
+Durante o desenvolvimento da aplicação os desenvolvedores costumam ter um ou mais bancos de dados da mesma aplicação em seu ambiente local, e para isso precisam poder executar todas as migrações da aplicação.
+
+Outro caso e para aplicações multitenant com isolamento por schema. Nessas aplicações toda vez um tenant novo é provisionado, é necessário criar um schema para esse tenant e rodar todas a migrações apontando para esse schema.
+
+Por esse motivos temos a necessidade converter a migrações que forma feita pelo provider da Devart para migrações para o provider da Npgsql.
 
 ### Como funcionam as migrações no EntityFramework Core
 
@@ -26,10 +44,10 @@ Exemplo:
     -MyDbContextModelSnapshot.cs
 ```
 
-No exemplo, o aquivo `20220825184314_CreateDatabase.cs` contem o código que é usada para gerar o script SQL de migração, o arquivo `20220825184314_CreateDatabase.Designer.cs` com tem o snapshot com o estado da model de no momento que a migração foi criado, e o arquivo `MyDbContextModelSnapshot.cs` contém o snapshot com o ultimo estado da model, ou seja o estado da model quando o a ultima migration foi adicionada, que nesse caso é a `20220825184314_CreateDatabase`. Se olharmos a definição da model nos arquivos `20220825184314_CreateDatabase.Designer.cs` e `MyDbContextModelSnapshot.cs`, veremos que a definição é a mesma.
+No exemplo, o aquivo `20220825184314_CreateDatabase.cs` contem o código que é usado para gerar o script SQL de migração, o arquivo `20220825184314_CreateDatabase.Designer.cs` com tem o snapshot com o estado da model no momento que a migração foi criada, e o arquivo `MyDbContextModelSnapshot.cs` contém o snapshot com o último estado da model, ou seja o estado da model quando o a ultima migration foi adicionada, que nesse caso é a `20220825184314_CreateDatabase`. Se olharmos a definição da model nos arquivos `20220825184314_CreateDatabase.Designer.cs` e `MyDbContextModelSnapshot.cs`, veremos que a definição é a mesma.
 
-Se nesse exemplo executarmos novamente o comando `Add-Migration` vamos acabar com o seguinte resultado.
-Exemplo:
+Se nesse exemplo executarmos novamente o comando `Add-Migration`, vamos acabar com o seguinte resultado:
+
 ```
 -Migrations
     -20220825184314_CreateDatabase.cs
@@ -39,7 +57,7 @@ Exemplo:
     -MyDbContextModelSnapshot.cs
 ```
 
-Agora temos mais dois arquivos `20220825191457_AddingNewTables.cs` e `20220825191457_AddingNewTables.Designer.cs`. o `20220825191457_AddingNewTables.cs` com o código para gerar o script SQL de migração e `20220825191457_AddingNewTables.Designer.cs` com o estado da model. Mas o arquivo `MyDbContextModelSnapshot.cs` também foi alterado. Agora ele tem a mesma definição que o arquivo `20220825191457_AddingNewTables.Designer.cs`.
+Agora temos mais dois arquivos, `20220825191457_AddingNewTables.cs` e `20220825191457_AddingNewTables.Designer.cs`. O `20220825191457_AddingNewTables.cs` com o código para gerar o script SQL de migração e `20220825191457_AddingNewTables.Designer.cs` com o estado da model. Mas o arquivo `MyDbContextModelSnapshot.cs` também foi alterado. Agora ele tem a mesma definição que o arquivo `20220825191457_AddingNewTables.Designer.cs`.
 
 > Mas como e EF Core sabe o que mudou entre um comando `Add-Migration` e outro?
 
@@ -52,6 +70,7 @@ Quando executamos o comando `Add-Migration` o EF Core instancia o DbContext em q
 Ela serve para revert o ModelSnapshot para uma migration anterior.
 
 Exemplo, no nosso caso de exemplo, se executarmos o comando `Remove-Migration`, vamos voltar para esta situação.
+
 ```
 -Migrations
     -20220825184314_CreateDatabase.cs
@@ -61,17 +80,18 @@ Exemplo, no nosso caso de exemplo, se executarmos o comando `Remove-Migration`, 
 
 Nesse caso, o ModelSnapshot que é o arquivo `MyDbContextModelSnapshot.cs` volta ter a mesma definição de model que o arquivo `20220825184314_CreateDatabase.Designer.cs`.
 
-Uma coisa que é importante salientar é que, os códigos das migrações, model da migração e ModelSnapshot são gerados especificamente para o provider sendo usando. Por isso não é possível usar migrações geradas com o provider do SqlServer num provider de PostgreSQL ou Oracle. Da mesma forma, não é possível usar as migrações geradas pelo provider de PostgreSQL da Devart no provider da Npgsql, pois cadas provider tem customizações e annotations especificas que ele usa ao gerar o script SQL de migração.
+Lembando, os códigos das migrações, model da migração e ModelSnapshot são gerados especificamente para o provider sendo usando. Por isso não é possível usar migrações geradas com o provider do SqlServer num provider de PostgreSQL ou Oracle. Da mesma forma, não é possível usar as migrações geradas pelo provider de PostgreSQL da Devart no provider da Npgsql, pois cadas provider tem customizações e annotations especificas que ele usa ao gerar o script SQL da migração.
 
 ### Regerando as migrações com o provider Npgsql
 
-Como não podemos usar as migrações geradas com o provider da Devart, teremos que regerar a migrações com o provider da Npgsql.
+Como não podemos usar as migrações geradas com o provider da Devart e termos que converte-las para migrações compatíveis com o Npgsql, nossa estrategia será regerar as migrações usando o provider da Npgsql.
 
 > Mas como fazer isso sem alterar model do DbContext que a aplicação já está usando?
 
-A estrategia que vamos usar para isso vai envolver o uso dos comandos `Update-Database`, `Scaffold-DbContext` e `Add-Migration`.
+A estrategia envolve o uso dos comandos `Update-Database`, `Scaffold-DbContext` e `Add-Migration`.
 
 Digamos que temos a seguinte lista de migrations para regerar:
+
 ```
 -InitialModel
 -AddingUserTable
@@ -106,7 +126,7 @@ Executamos o commando `Add-Migration AddingUserTable -Context NewMyDbContext` e 
 
 Depois executamos o mesmo processo para a migração `RemovingUserPassColumn`.
 
-Claro, esse processo não vai gerar um código pode ser portado para diretamente para o DbContext original da aplicação, pois sempre temos algumas diferenças entre os nomes no bando de dados e os nomes na model do DbContext, nome de relacionamento, mapeamentos do tipos e mais. O processo também é bem trabalhoso de se fazer manualmente e envolve muita repetição, por isso desenvolvemos uma ferramente e uma pacote para ajudar no processo.
+Claro, esse processo não vai gerar um código que pode ser portado diretamente para o DbContext original da aplicação, pois sempre temos algumas diferenças entre os nomes no bando de dados e os nomes na model do DbContext, nome de relacionamento, mapeamentos do tipos e mais. O processo também é bem trabalhoso de se fazer manualmente e envolve muita repetição, por isso desenvolvemos uma ferramente e uma pacote para ajudar no processo.
 
 ## A ferramenta
 
@@ -118,7 +138,7 @@ Para ajudar nesse processo de migração desenvolvemos um pacote e uma ferrament
 
 A ferramenta vai auxiliar no processo de `Update-Database`, `Scaffold-DbContext` e `Add-Migration` que descrevemos acima.
 
-Entes de instalar a ferramenta, é necessário instalar a dotnet tool EF Core na versão dotnet-ef na versão 3.1.26.
+Entes de instalar a ferramenta, é necessário instalar a dotnet tool EF Core na versão 3.1.26.
 
 Para isso executamos o comando `dotnet tool install dotnet-ef -g --version 3.1.26`.
 
@@ -166,7 +186,9 @@ Veremos mais detalhes do uso tando da ferramenta quando do pacote no tutorial a 
 
 Agora vamos fazer exemplo pratico de uso da ferramenta e pacote com uma aplicação.
 
-Este é o model da aplicação
+> Use a branch `master` desse repositório como ponto de inicio para seguir o tutorial.
+
+Este é o model da aplicação:
 
 ```C#
 namespace BlogManager.Domain
@@ -354,6 +376,8 @@ No projeto `BlogManager.EFCore.PostgreSql` temos o DbContext `PostgreSqlBlogDbCo
 -20220912232153_DropBlogRatingsTable.cs
 ```
 
+Essas migrações foram criadas com provider da Devart.
+
 Antes de iniciarmos o processo de migração, vamos gerar script completo de migração com as migrações originais.
 
 Para fazer isso, vamos executar o comando `Script-Migration -Output DotConnectMigrations.sql`
@@ -364,9 +388,9 @@ Build started...
 Build succeeded.
 ```
 
-Vamos guardar esse script para poder compara com script apos a migração para Npgsql.
+Vamos guardar esse script para poder comparar com script após a migração para Npgsql.
 
-Agora podemos adicionar um projeto do tipo `Console App` na nossa solution. Como o projeto e EF Core para PostgreSQL da nosso aplicação se chama `BlogManager.EFCore.PostgreSql`, vamos chamar esse novo projeto de `BlogManager.EFCore.PostgreSql.Recover`, e vamos selecionar o Framework .NET Core 3.1 para ele.
+Agora vamos adicionar um projeto do tipo `Console App` na nossa solution. Como o projeto e EF Core para PostgreSQL da nossa aplicação se chama `BlogManager.EFCore.PostgreSql`, vamos chamar esse novo projeto de `BlogManager.EFCore.PostgreSql.Recover`, e vamos selecionar o Framework .NET Core 3.1 para ele.
 
 No projeto `BlogManager.EFCore.PostgreSql.Recover` vamos fazer referencia ao projeto `BlogManager.EFCore.PostgreSql`.
 
@@ -398,9 +422,9 @@ public class DesignTimeServices : IDesignTimeServices
 }
 ```
 
-A interface `IDesignTimeServices` implementada pela classe é uma interface definida pelo EF Core, e ela permite registar e substituir services que serão usadas nas operações de design time, tipo Add-Migration, Update-Database, Scaffold-Context e ect. Já o método de extensão `AddTnfEFCoreProviderMigration` é definido no pacote `Tnf.EntityFrameworkCore.Migration.Design` e ele faz o registro e substituição de services que precisamos para fazer essa migração. Dentro da lambda dele também registramos os DbContext da aplicação que vamos migrar. O Registro é necessário porque durante o processo de Scaffold usamos a model do DbContext da aplicação para dar o nome correto as propriedades do DbContext gerado.
+A interface `IDesignTimeServices` implementada pela classe é uma interface definida pelo EF Core, e ela permite registar e substituir services que serão usadas nas operações de design time, tipo `Add-Migration`, `Update-Database`, `Scaffold-Context` e ect. Já o método de extensão `AddTnfEFCoreProviderMigration` é definido no pacote `Tnf.EntityFrameworkCore.Migration.Design` e ele faz o registro e substituição de services que precisamos para fazer essa migração. Dentro da lambda dele também registramos os DbContext da aplicação que vamos migrar. O Registro é necessário porque durante o processo de Scaffold usamos a model do DbContext da aplicação para dar o nome correto as propriedades do DbContext gerado e não apenas no nome da coluna, como originalmente é feito.
 
-O primeiro parâmetro do método `AddTnfEFCoreProviderMigration` é ConnectionString do banco de dados que vamos usar para regerar as migrações. No exemplo estamos apontando para o banco `BlogManager_Recover`, estão vamos criar um banco de dados com esse nome no PostgreSql local. Não precisamos fazer nada além de criar o banco
+O primeiro parâmetro do método `AddTnfEFCoreProviderMigration` é a string de conexão do banco de dados que vamos usar para regerar as migrações. No exemplo estamos apontando para o banco `BlogManager_Recover`, estão vamos criar um banco de dados com esse nome no PostgreSql local. Não precisamos fazer nada além de criar o banco com esse nome.
 
 Agora vamos criar uma pasta chamada `Properties` Adicionar um arquivo `AssemblyInfo.cs`.
 
@@ -437,11 +461,11 @@ namespace BlogManager.EFCore.PostgreSql
 }
 ```
 
-Aqui nós mudamos a ConnectionString para conectar no banco de dados temporário.
+Aqui nós mudamos a string de conexão para conectar no banco de dados temporário.
 
 Para o processo de migração é importante deixar a factory de DbContext o mais simples possível. Caso contrário a ferramenta do TNF pode não conseguir carregar os assemblies envolvidos. Após a migração você pode voltar ao código original.
 
-Agora vamos rodar a ferramenta. Mas primeiro temos que instalar ela.
+Agora vamos rodar a ferramenta. Mas primeiro temos que instala-la.
 
 Vamos instalar do ferramenta dotnet-ef primeiro com o comando `dotnet tool install dotnet-ef -g --version 3.1.26` em uma janela de cmd.
 
@@ -479,7 +503,7 @@ Vamos passar os parâmetros um por um.
 
 > Todos os caminhos passados por parâmetro são relativos ao local de onde a ferramenta está sendo executada, no exemplo `C:\Temp\BlogManager`.
 
-Após a execução da ferramenta, podemos ver que temos a pasta `Scaffold_PostgreSqlBlogDbContext` no projeto `BlogManager.EFCore.PostgreSql.Recover`. Nala teremos todas as entidades da model e um DbContext com o nome `ProviderMigration_PostgreSqlBlogDbContext`.
+Após a execução da ferramenta, podemos ver que temos a pasta `Scaffold_PostgreSqlBlogDbContext` no projeto `BlogManager.EFCore.PostgreSql.Recover`. Nela teremos todas as entidades da model e um DbContext com o nome `ProviderMigration_PostgreSqlBlogDbContext`.
 
 ```
 Scaffold_PostgreSqlBlogDbContext
@@ -632,9 +656,9 @@ namespace ProviderMigration.BlogManager.EFCore.PostgreSql
 }
 ```
 
-Dá pra notar também que esse novo DbContext não está no mesmo namespace que o DbContext original, ele está no namespace `ProviderMigration.BlogManager.EFCore.PostgreSql`. Não é só o DbContext, as entidades da model também foram colocadas no mesmo namespace. Isso é feito para evitar conflito com as classes do modelo original.
+Dá para notar também que esse novo DbContext não está no mesmo namespace que o DbContext original, ele está no namespace `ProviderMigration.BlogManager.EFCore.PostgreSql`. Não é só o DbContext, as entidades da model também foram colocadas no mesmo namespace. Isso é feito para evitar conflito com as classes do modelo original.
 
-Agora que temos o novo DbContext, o nosso objectivo não é substituir o DbContext da nossa aplicação por ele, mas sim usar partes dele ajustar o DbContext original para poder rodar as migrações com o provider da Npgsql.
+Agora que temos o novo DbContext, o nosso objectivo não é substituir o DbContext da nossa aplicação por ele, mas sim usar partes dele ajustar o DbContext original o poder rodar as migrações com o provider da Npgsql.
 
 Vamos começão copiando o conteúdo do método `OnModelCreating`. Mas não vamos copiar para o `OnModelCreating` do `BlogDbContext`, vamos copiar para o `OnModelCreating` do `PostgreSqlBlogDbContext`, pois esse é o DbContext especifico para PostgreSql.
 
@@ -644,11 +668,13 @@ Agora vamos olhar dentro da pasta `Migrations` do novo DbContext. Vamos olhar o 
 
 Após a substituição, temos que corrigir os nomes das entidades nesse arquivo, pois como falamos antes, as entidades da model `ProviderMigration_PostgreSqlBlogDbContext` tem um namespace diferente do original, e o conteúdo desse ModelSnapshot que acabamos de copiar se refere e essas entidades. No nosso caso precisamos fazer um replace de `ProviderMigration.BlogManager.EFCore.PostgreSql` por `BlogManager.Domain` para ajustar o namespace das entidades.
 
-Agora já podemos fazer um teste da nossa migração. Sim, ainda não migramos as migrações em si, mas podemos fazer um teste para saber se a nossa model está migrada corretamente. Para saber isso, podemos usar o comando `Add-Migration`, pois se não houver diferenças entre o `PostgreSqlBlogDbContextModelSnapshot` e a model do `PostgreSqlBlogDbContext`, a migration resultante deve ficar vazia. Caso haja alguma diferença, a migração resultante vai ter algumas operações, então teremos fazer ajustes no `PostgreSqlBlogDbContextModelSnapshot` ou no `PostgreSqlBlogDbContext`.
+Agora já podemos fazer um teste da nossa migração. Sim, ainda não migramos as migrações em si, mas podemos fazer um teste para saber se a nossa model está migrada corretamente. 
 
-Caso haja necessidade de fazer ajustes, também teremos que fazer um `Remove-Migration` para remover essa última migração que deve ficar vazia. Isso vai substituir a model do arquivo `PostgreSqlBlogDbContextModelSnapshot.cs` pela model do arquivo `20220912232153_DropBlogRatingsTable.Designer.cs`. Porém, esse não foi atualizado de acordo com as migrações do `ProviderMigration_PostgreSqlBlogDbContext` e vai desfazer o trabalho que já fizemos no arquivo `PostgreSqlBlogDbContextModelSnapshot.cs`. Então para prevenir isso, vamos substituir o conteúdo do método `BuildTargetModel` no arquivo `20220912232153_DropBlogRatingsTable.Designer.cs` com o conteúdo do mesmo método no arquivo `20220913215043_DropBlogRatingsTable.Designer.cs`. Nesse caso também precisamos corrigir o namespace das entidades da mesma forma que fizemos com o `PostgreSqlBlogDbContextModelSnapshot`.
+Para saber isso, podemos usar o comando `Add-Migration`. Pois se não houver diferenças entre o `PostgreSqlBlogDbContextModelSnapshot` e a model do `PostgreSqlBlogDbContext`, a migration resultante deve ficar vazia. Caso haja alguma diferença, a migração resultante vai ter algumas operações, então teremos fazer ajustes no `PostgreSqlBlogDbContextModelSnapshot` ou no `PostgreSqlBlogDbContext`.
 
-Mas antes executar o comando, também temos que ajustar a `PostgreSqlBlogDbContextFactory` para começar a usar o provider da Ngpsql. 
+Caso haja necessidade de fazer ajustes, também teremos que fazer um `Remove-Migration` para remover essa última migração. Isso vai substituir a model do arquivo `PostgreSqlBlogDbContextModelSnapshot.cs` pela model do arquivo `20220912232153_DropBlogRatingsTable.Designer.cs`. Porém, esse não foi atualizado de acordo com as migrações do `ProviderMigration_PostgreSqlBlogDbContext` e vai desfazer o trabalho que já fizemos no arquivo `PostgreSqlBlogDbContextModelSnapshot.cs`. Então para prevenir isso, vamos substituir o conteúdo do método `BuildTargetModel` no arquivo `20220912232153_DropBlogRatingsTable.Designer.cs` com o conteúdo do mesmo método no arquivo `.Designer.cs` da migração `DropBlogRatingsTable` do DbContext `ProviderMigration_PostgreSqlBlogDbContext`. Nesse caso também precisamos corrigir o namespace das entidades da mesma forma que fizemos com o `PostgreSqlBlogDbContextModelSnapshot`.
+
+Antes do `Add-Migration` também temos que ajustar a `PostgreSqlBlogDbContextFactory` para começar a usar o provider da Ngpsql.
 
 Primeiro vamos adicionar a seguinte `PackageReference` no projeto `BlogManager.EFCore.PostgreSql`.
 
@@ -724,7 +750,7 @@ System.InvalidOperationException: DefaultValue cannot be set for 'IsPublic' at t
 DefaultValue cannot be set for 'IsPublic' at the same time as DefaultValueSql. Remove one of these values.
 ```
 
-Opa! Outro erro.
+Hmm! Outro erro.
 
 ```
 DefaultValue cannot be set for 'IsPublic' at the same time as DefaultValueSql. Remove one of these values.
@@ -900,7 +926,7 @@ Vamos começar pela primeira, a `InitialModel`.
 
 Basta substituir o conteúdo dos métodos `Up` e `Down` do arquivo `20220912225920_InitialModel.cs` pelo conteúdo da mesma migração na pasta `Scaffold_PostgreSqlBlogDbContext/Migrations` no projeto `BlogManager.EFCore.PostgreSql.Recover`.
 
-Não podemos esquecer que também temos o arquivo `20220912225920_InitialModel.Designer.cs` com o ModelSnapshot desse migração. Também vamos substituir o conteúdo dele pelo equivalente que está no projeto `BlogManager.EFCore.PostgreSql.Recover`. Não podemos esquecer que temos que fazer a correção do namespace da entidades de `ProviderMigration.BlogManager.EFCore.PostgreSql` para `BlogManager.Domain`, e o ajuste dos defaults das propriedades `Ranking` e `IsPublic` com fizemos no arquivo `20220912232153_DropBlogRatingsTable.Designer.cs`.
+Também temos que substituir o conteúdo do método `BuildTargetModel` do arquivo `20220912225920_InitialModel.Designer.cs` pelo equivalente que está no projeto `BlogManager.EFCore.PostgreSql.Recover`. E não podemos esquecer que temos que fazer a correção do namespace da entidades de `ProviderMigration.BlogManager.EFCore.PostgreSql` para `BlogManager.Domain`, e o ajuste dos defaults das propriedades `Ranking` e `IsPublic` com fizemos no arquivo `20220912232153_DropBlogRatingsTable.Designer.cs`.
 
 Agora basta fazer o mesmo para as migrações `AddingMetricTables`, `AddingBlogRatings`, `ResetingBlogRatings`, `DropBlogRatingsTable`. Atenção para a `ResetingBlogRatings`, pois a que está no projeto `BlogManager.EFCore.PostgreSql.Recover` estará vazia. Nesse caso preservamos a original.
 
@@ -945,7 +971,7 @@ Build started...
 Build succeeded.
 ```
 
-Podemos ver que os scripts são bem parecidos. Temos apenas algumas alterações nos nomes dos tipos, onde usa o alias e outro está usando o nome próprio, e uma declara a constraint da PK explicitamente enquanto o outro deixa de forma implícita.
+Podemos ver que os scripts são bem parecidos. Temos apenas algumas alterações nos nomes dos tipos, onde um usa o alias e outro está usando o nome próprio, e uma declara a constraint da PK explicitamente enquanto o outro deixa de forma implícita.
 
 Agora já podemos mudar o drive no resto da aplicação.
 
@@ -992,17 +1018,30 @@ public class Startup
 }
 ```
 
+E precisamos mudar a string de conexão nos arquivos `appsettings.json` e `appsettings.Development.json` para ficar no formato aceito pelo Npgsql.
+
+```c#
+"ConnectionStrings": {
+    //"PostgreSql": "Server=127.0.0.1;Port=5432;Database=BlogManager;User ID=postgres;password=admin;Unicode=true;"
+    "PostgreSql": "Host=127.0.0.1;Port=5432;Database=BlogManager;User ID=postgres;password=admin;"
+},
+```
+
 Pronto!! Aplicação migrada para o Ngpsql para EntityFramework Core.
 
 Se você quiser ver a nossa versão da aplicação migrada para compara com a sua, olhe a branch `Completed`.
 
 ## Pontos de atenção
 
+### Navigation properties
+
+Caso você tenha uma sua model navigation properties com nomes diferentes das tabelas, a model gerada pela ferramenta vai gerar essas navigations com os nomes das tabelas. Então ao copiar o conteúdo do `OnModelCreating` do DbContext gerado pela ferramenta para o DbContext da aplicação, podem ocorrer alguns erros no mapeamento das navigations. Para resolver basta ajustar os nomes ou remover os mapeamentos duplicados ou que não são necessários.
+
 ### Default Values
 
-Como vimos durante tutorial, ao fazer a engenharia reversa do banco de dados para gerar o DbContext, algumas coisas vão ficar duplicadas. Os valores padrões das colunas são uma delas, porém os nesse caso isso gera erro no EF Core, pois ao restaurar o DbContext vem o com o valor padrão como `DefaultValueSql`, que é diferente do que o normalmente fazemos na nossas model.
+Como vimos durante tutorial, ao fazer a engenharia reversa do banco de dados para gerar o DbContext, algumas coisas vão ficar duplicadas. Os valores padrões das colunas são uma delas, porém, nesse caso, isso gera erro no EF Core, pois ao restaurar o DbContext vem o com o valor padrão como `DefaultValueSql`, que é diferente do que o normalmente fazemos na nossas model.
 
-Em boa parte dos caso um valor padrão vai precisar de um ajuste como fizemos no tutorial.
+Em boa parte dos caso o valor padrão vai precisar de um ajuste como fizemos no tutorial.
 
 ### Indexes nomeados
 
