@@ -4,7 +4,7 @@ Devido a muitos problemas e atrasos enfrentados com fornecedor Devart, chegamos 
 
 De agora em diante passamos a usar e recomendar o uso do provider de código aberto da Npgsql.
 
-Neste repositório temos uma aplicação que vai servir de exemplo de migração, e também será para seguir o tutorial no final desse documento.
+Neste repositório disponibilizamos uma aplicação que vai servir de exemplo de migração, e também o tutorial a ser seguido no processo.
 
 ## O processo de migração
 
