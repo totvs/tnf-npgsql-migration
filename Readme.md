@@ -80,7 +80,7 @@ Exemplo, no nosso caso de exemplo, se executarmos o comando `Remove-Migration`, 
 
 Nesse caso, o ModelSnapshot que é o arquivo `MyDbContextModelSnapshot.cs` volta ter a mesma definição de model que o arquivo `20220825184314_CreateDatabase.Designer.cs`.
 
-Lembando, os códigos das migrações, model da migração e ModelSnapshot são gerados especificamente para o provider sendo usando. Por isso não é possível usar migrações geradas com o provider do SqlServer num provider de PostgreSQL ou Oracle. Da mesma forma, não é possível usar as migrações geradas pelo provider de PostgreSQL da Devart no provider da Npgsql, pois cadas provider tem customizações e annotations especificas que ele usa ao gerar o script SQL da migração.
+Lembrando, os códigos das migrações, model da migração e ModelSnapshot são gerados especificamente para o provider sendo usando. Por isso não é possível usar migrações geradas com o provider do SqlServer num provider de PostgreSQL ou Oracle. Da mesma forma, não é possível usar as migrações geradas pelo provider DotConnect no provider da Npgsql, pois cada provider tem customizações e annotations especificas que ele usa ao gerar o script SQL da migração.
 
 ### Regerando as migrações com o provider Npgsql
 
