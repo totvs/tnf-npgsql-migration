@@ -1057,7 +1057,7 @@ Se para as suas migrações for crucial que seja feito a renomeação da tabela,
 
 Se sua aplicação contem múltiplos DbContexts, será necessário mais cuidados ao executar a ferramenta, pois se nenhum parâmetro extra for passado, quando a ferramenta roda, ela lê todas as tabelas e adiciona no DbContext criado. Se você estiver usando o mesmo banco de dados temporário para todos DbContexts, quando for fazer o segundo DbContext, ele vai acabar pegando as tabelas do primeiro também.
 
-Um maneira fácil de resolver é criar um banco de dados temporário para cada DbContext.
+Logo, aconselhamos criar um banco de dados temporário para cada DbContext.
 
 Também é possível resolver passando os nomes das tabelas que pertencem ao DbContext, basta passar o parâmetro `--scaffold-table` uma vez para cada tabela. Ou, Passar via código na hora que está configurando o DbContext na chamada `ConfigureTnfDbContext`.
 
