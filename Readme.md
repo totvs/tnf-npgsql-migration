@@ -1049,7 +1049,7 @@ Os índices das tabelas vão aparecer na model do DbContext gerado pela ferramen
 
 ### Tabelas e colunas renomeadas
 
-Se sua aplicação teve tabelas ou colunas renomeada, o processo executado pela ferramenta não consegue identificar isso. Por exemplo, se a tabela `BlogPostMetrics` for renomeada para `PostMetrics`, a ferramenta vai criar um comando `drop table` para `BlogPostMetrics` e um `create table` para `PostMetrics`.
+Se sua aplicação teve tabelas ou colunas renomeadas, o processo executado pela ferramenta não consegue identificar isso. Por exemplo, se a tabela `BlogPostMetrics` for renomeada para `PostMetrics`, a ferramenta vai criar um comando `drop table` para `BlogPostMetrics` e um `create table` para `PostMetrics`.
 
 Se para as suas migrações for crucial que seja feito a renomeação da tabela, você tera que ajustar a migração manualmente.
 
