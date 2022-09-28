@@ -1045,7 +1045,7 @@ Em boa parte dos caso o valor padrão vai precisar de um ajuste como fizemos no 
 
 ### Indexes nomeados
 
-Os indices das tabelas vão aparecer na model do DbContext gerado pela ferramenta. Esses indices vão ter nomes. Não esqueça de trazes esse indices para model do DbContext da aplicação.
+Os índices das tabelas vão aparecer na model do DbContext gerado pela ferramenta. Esses índices vão ter nomes. Não esqueça de trazer esses índices para a model do DbContext da aplicação.
 
 ### Tabelas e colunas renomeadas
 
