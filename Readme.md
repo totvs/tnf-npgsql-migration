@@ -1,6 +1,6 @@
 # Migração de provider para banco de dados PostgreSql: Devart DotConnect para NpgSql
 
-Devido a muitos problemas e atrasos enfrentados com o do provider da Devart, chegamos a conclusão que não podemos mais usar e encorajar os times a usar esse provider.
+Devido a muitos problemas e atrasos enfrentados com fornecedor Devart, chegamos a conclusão que não iremos mais usar e encorajar os times a usar o provider DotConnect.
 
 Agora vamos passar a usar e recomendar o uso do provider de código aberto da Npgsql.
 
