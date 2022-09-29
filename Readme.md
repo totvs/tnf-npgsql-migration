@@ -88,7 +88,7 @@ Como não podemos usar as migrações geradas pelo DotConnect com o novo provide
 
 > Mas como fazer isso sem alterar a model do DbContext que a aplicação já está usando?
 
-A estrategia envolve o uso dos comandos `Update-Database`, `Scaffold-DbContext` e `Add-Migration`.
+A estratégia envolve o uso dos comandos `Update-Database`, `Scaffold-DbContext` e `Add-Migration`.
 
 Digamos que temos a seguinte lista de migrations para regerar:
 
