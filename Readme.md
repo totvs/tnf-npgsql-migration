@@ -496,7 +496,7 @@ Vamos passar os parâmetros um por um.
 * `--connection-string`: A string de conexão com o banco temporário;
 * `--context`: O DbContext que queremos regerar as migrações. Lembrando - esse deve ser o DbContext derivado que tem uma factory, não o DbContext base;
 * `--context-project`: O projeto em que o DbContext se encontra;
-* `--context-assembly`: O assembly que o DbContext se encontra. Nesse caso apontamos para o assembly dentro da pasta `bin` do projeto `BlogManager.EFCore.PostgreSql.Recover`, já que as operações serão feitas lá;
+* `--context-assembly`: O assembly em que o DbContext se encontra. Nesse caso apontamos para o assembly dentro da pasta `bin` do projeto `BlogManager.EFCore.PostgreSql.Recover`, já que as operações serão feitas nesse diretório;
 * `--scaffold-project`: O projeto onde vamos colocar o nosso novo DbContext que vai ser gerado pela ferramenta;
 * `--scaffold-project-dir`: A pasta do projeto onde vamos colocar o novo DbContext;
 * `--scaffold-context-assembly`: O assembly onde o novo DbContext vai ficar.
