@@ -44,7 +44,7 @@ Exemplo:
     -MyDbContextModelSnapshot.cs
 ```
 
-No exemplo, o aquivo `20220825184314_CreateDatabase.cs` contem o código que é usado para gerar o script SQL de migração, o arquivo `20220825184314_CreateDatabase.Designer.cs` com tem o snapshot com o estado da model no momento que a migração foi criada, e o arquivo `MyDbContextModelSnapshot.cs` contém o snapshot com o último estado da model, ou seja o estado da model quando o a ultima migration foi adicionada, que nesse caso é a `20220825184314_CreateDatabase`. Se olharmos a definição da model nos arquivos `20220825184314_CreateDatabase.Designer.cs` e `MyDbContextModelSnapshot.cs`, veremos que a definição é a mesma.
+No exemplo, o arquivo `20220825184314_CreateDatabase.cs` contém o código que é usado para gerar o script SQL de migração, o arquivo `20220825184314_CreateDatabase.Designer.cs` contém o snapshot com o estado da model no momento que a migração foi criada, e o arquivo `MyDbContextModelSnapshot.cs` contém o snapshot com o último estado da model, ou seja o estado da model quando o a última migration foi adicionada, que nesse caso é a `20220825184314_CreateDatabase`. Se olharmos a definição da model nos arquivos `20220825184314_CreateDatabase.Designer.cs` e `MyDbContextModelSnapshot.cs`, veremos que a definição é a mesma.
 
 Se nesse exemplo executarmos novamente o comando `Add-Migration`, vamos acabar com o seguinte resultado:
 
