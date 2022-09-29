@@ -662,7 +662,7 @@ Agora temos o novo DbContext. Nosso objetivo não é substituir o DbContext da n
 
 Vamos começar copiando o conteúdo do método `OnModelCreating`. Mas não vamos copiar para o `OnModelCreating` do `BlogDbContext`, vamos copiar para o `OnModelCreating` do `PostgreSqlBlogDbContext`, pois esse é o DbContext especifico para PostgreSql.
 
-Após a copia vamos ter alguns erros de compilação porque o mapeamento das relações entre as entidades está diferente, pois no modelo original não temos a navegação bidirecional. Nesse caso basta apagar os mapeamentos que estão com erro, pois ele já são registrados no `OnModelCreating` do `BlogDbContext`.
+Após a copia vamos ter alguns erros de compilação porque o mapeamento das relações entre as entidades está diferente, pois no modelo original não temos a navegação bidirecional. Nesse caso basta apagar os mapeamentos que estão com erro, pois eles já são registrados no `OnModelCreating` do `BlogDbContext`.
 
 Agora vamos olhar dentro da pasta `Migrations` do novo DbContext. Vamos olhar o arquivo `ProviderMigration_PostgreSqlBlogDbContextModelSnapshot.cs`. Esse é o ModelSnapshot do `ProviderMigration_PostgreSqlBlogDbContext`. Ele também está em um namespace diferente então não podemos substituir o arquivo inteiro, ao invés, vamos apensa copiar os conteúdo do método `BuildModel` e substituir pelo conteúdo desse mesmo método no arquivo `PostgreSqlBlogDbContextModelSnapshot.cs`.
 
