@@ -428,7 +428,7 @@ O primeiro parâmetro do método `AddTnfEFCoreProviderMigration` é a string de 
 
 Agora vamos criar uma pasta chamada `Properties` e adicionar um arquivo `AssemblyInfo.cs`.
 
-Dentro do arquivo vamos por o seguinte conteúdo:
+Dentro do arquivo vamos pôr o seguinte conteúdo:
 
 ```c#
 using Microsoft.EntityFrameworkCore.Design;
