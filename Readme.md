@@ -518,7 +518,7 @@ Scaffold_PostgreSqlBlogDbContext
   -ProviderMigration_PostgreSqlBlogDbContext.cs
 ```
 
-Também temos uma entidade que não estava na model original. A entidade `BlogRatings` existia na model original em versões anteriores, mas a ultima migração removeu ela. Como a ferramenta apensa sobrescreve o conteúdo da pasta `Scaffold_PostgreSqlBlogDbContext` sem apagar nada, a entidade permanece na pasta. Porém se formos olhar dentro da classe `ProviderMigration_PostgreSqlBlogDbContext`, ela não vai estar lá.
+Também temos uma entidade que não estava na model original. A entidade `BlogRatings` existia na model original em versões anteriores, mas foi removida na última migração. Como a ferramenta apenas sobrescreve o conteúdo da pasta `Scaffold_PostgreSqlBlogDbContext` sem apagar nada, a entidade permanece na pasta. Porém se formos olhar dentro da classe `ProviderMigration_PostgreSqlBlogDbContext`, ela não vai estar lá.
 
 Esse é o DbContext gerado pela ferramenta:
 
