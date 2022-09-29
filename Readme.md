@@ -1029,7 +1029,7 @@ E precisamos mudar a string de conexão nos arquivos `appsettings.json` e `appse
 
 Pronto!! Aplicação migrada para utilizar o provider NpgSql.
 
-Se você quiser ver a nossa versão da aplicação migrada para compara com a sua, olhe a branch `Completed`.
+Se você quiser ver a nossa versão da aplicação migrada para comparar com a sua, verifique a branch `Completed`.
 
 ## Pontos de atenção
 
