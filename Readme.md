@@ -26,7 +26,7 @@ Porém não é tão simples assim. As migrações da sua aplicação são feitas
 
 Durante o desenvolvimento da aplicação os desenvolvedores costumam ter um ou mais bancos de dados da mesma aplicação em seu ambiente local, e para isso precisam poder executar todas as migrações da aplicação.
 
-Outro caso e para aplicações multitenant com isolamento por schema. Nessas aplicações toda vez um tenant novo é provisionado, é necessário criar um schema para esse tenant e rodar todas a migrações apontando para esse schema.
+Outro caso é para aplicações multitenant com isolamento por schema. Nessas aplicações toda vez que um tenant novo é provisionado, é necessário criar o schema e rodar todas a migrações apontando para o tenant.
 
 Por esse motivos temos a necessidade converter a migrações que forma feita pelo provider da Devart para migrações para o provider da Npgsql.
 
