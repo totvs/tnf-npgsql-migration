@@ -467,7 +467,7 @@ Para o processo de migração é importante deixar a factory de DbContext o mais
 
 Agora vamos rodar a ferramenta. Basta instalá-la.
 
-Vamos instalar do ferramenta dotnet-ef primeiro com o comando `dotnet tool install dotnet-ef -g --version 3.1.26` em uma janela de cmd.
+Vamos instalar do ferramenta dotnet-ef com o comando `dotnet tool install dotnet-ef -g --version 3.1.26` em uma janela de cmd.
 
 ```
 C:\Temp\BlogManager>dotnet tool install dotnet-ef -g --version 3.1.26
