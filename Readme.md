@@ -378,7 +378,7 @@ No projeto `BlogManager.EFCore.PostgreSql` temos o DbContext `PostgreSqlBlogDbCo
 
 Essas migrações foram criadas com provider da Devart.
 
-Antes de iniciarmos o processo de migração, vamos gerar script completo de migração com as migrações originais.
+Antes de iniciarmos o processo de migração, vamos gerar o script completo de migração com as migrações originais.
 
 Para fazer isso, vamos executar o comando `Script-Migration -Output DotConnectMigrations.sql`
 
