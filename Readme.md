@@ -120,7 +120,7 @@ Em seguida executamos o comando `Update-Database AddingUserTable -Context MyDbCo
 
 Agora deixamos o banco de dados no estado de modelagem da migração `AddingUserTable`.
 
-Depois executamos o comando `Scaffold-DbContext` da mesma forma. Agora teremos um DbContext que representa do estado da model após a migração `AddingUserTable`.
+Depois executamos o comando `Scaffold-DbContext` da mesma forma. Agora teremos um DbContext que representa o estado da model após a migração `AddingUserTable`.
 
 Executamos o commando `Add-Migration AddingUserTable -Context NewMyDbContext` e geramos a migração para este estado.
 
