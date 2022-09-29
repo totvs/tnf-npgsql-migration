@@ -1035,7 +1035,7 @@ Se você quiser ver a nossa versão da aplicação migrada para comparar com a s
 
 ### Navigation properties
 
-Caso você tenha uma sua model navigation properties com nomes diferentes das tabelas, a model gerada pela ferramenta vai gerar essas navigations com os nomes das tabelas. Então ao copiar o conteúdo do `OnModelCreating` do DbContext gerado pela ferramenta para o DbContext da aplicação, podem ocorrer alguns erros no mapeamento das navigations. Para resolver basta ajustar os nomes ou remover os mapeamentos duplicados ou que não são necessários.
+Caso você tenha em sua model navigation properties com nomes diferentes das tabelas, a model gerada pela ferramenta vai gerar essas navigations com os nomes das tabelas. Então ao copiar o conteúdo do `OnModelCreating` do DbContext gerado pela ferramenta para o DbContext da aplicação, podem ocorrer alguns erros no mapeamento das navigations. Para resolver basta ajustar os nomes ou remover os mapeamentos duplicados ou que não são necessários.
 
 ### Default Values
 
