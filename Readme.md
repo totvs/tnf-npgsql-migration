@@ -440,7 +440,7 @@ Assim mesmo, sem namespace ou classe.
 
 O atributo `DesignTimeServicesReference` vai indicar ao EF Core qual a classe que vamos usar para carregar as services de design time. Nele vai uma `string` com o nome completo do tipo e o nome do assembly onde o tipo se encontra, no nosso caso `BlogManager.EFCore.PostgreSql.Recover.DesignTime.DesignTimeServices, BlogManager.EFCore.PostgreSql.Recover`.
 
-Já estamos quase prontos para rodar a ferramenta. Primeiro precisamos ajustar a factory do nosso `PostgreSqlBlogDbContext`.
+Já estamos quase prontos para rodar a ferramenta. Agora precisamos ajustar a factory do nosso `PostgreSqlBlogDbContext`.
 
 ```c#
 namespace BlogManager.EFCore.PostgreSql
