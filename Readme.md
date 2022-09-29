@@ -102,7 +102,7 @@ Primeiro criamos um banco de dados temporário. Depois configuramos o DbContext 
 
 Então executamos o comando `Update-Database InitialModel -Context MyDbContext`.
 
-Esse comando vai executar as migrações até a migração `InitialModel`, que no caso é primeira.
+Esse comando vai executar as migrações até a migração `InitialModel`, que é a primeira.
 
 Com isso deixamos o banco de dados no estado de modelagem da primeira migração.
 
