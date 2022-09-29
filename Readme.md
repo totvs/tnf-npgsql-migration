@@ -1039,7 +1039,7 @@ Caso você tenha uma sua model navigation properties com nomes diferentes das ta
 
 ### Default Values
 
-Como vimos durante tutorial, ao fazer a engenharia reversa do banco de dados para gerar o DbContext, algumas coisas vão ficar duplicadas. Os valores padrões das colunas são uma delas, porém, nesse caso, isso gera erro no EF Core, pois ao restaurar o DbContext vem o com o valor padrão como `DefaultValueSql`, que é diferente do que o normalmente fazemos na nossas model.
+Como vimos durante o tutorial, ao fazer a engenharia reversa do banco de dados para gerar o DbContext, algumas coisas vão ficar duplicadas. Os valores padrões das colunas são uma delas, porém, nesse caso, isso gera erro no EF Core, pois ao restaurar o DbContext vem com o valor padrão como `DefaultValueSql`, que é diferente do que normalmente fazemos nas nossas models.
 
 Em boa parte dos casos o valor padrão vai precisar de um ajuste como fizemos no tutorial.
 
