@@ -110,7 +110,7 @@ Logo em seguida executamos o comando `Scaffold-DbContext "{connString}" Npgsql.E
 
 Esse comando vai ler as tabelas e relacionamentos e gerar uma model baseado nessa leitura. Com essa model ele vai gerar um DbContext com nome `NewMyDbContext`, conforme indicamos no parâmetro `-Context` do comando. 
 
-Ou seja, agora temos um DbContext que representa o estado model apos a primeira migração.
+Ou seja, agora temos um DbContext que representa o estado da model após a primeira migração.
 
 Logo após executamos o comando `Add-Migration InitialModel -Context NewMyDbContext`. Só que dessa vez, vamos apontar para o `NewMyDbContext`.
 
