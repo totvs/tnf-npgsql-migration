@@ -86,7 +86,7 @@ Lembrando, os códigos das migrações, model da migração e ModelSnapshot são
 
 Como não podemos usar as migrações geradas pelo DotConnect com o novo provider, então temos que convertê-las para migrações compatíveis com o Npgsql. Para isso nossa estratégia será regerar as migrações usando o novo provider.
 
-> Mas como fazer isso sem alterar model do DbContext que a aplicação já está usando?
+> Mas como fazer isso sem alterar a model do DbContext que a aplicação já está usando?
 
 A estrategia envolve o uso dos comandos `Update-Database`, `Scaffold-DbContext` e `Add-Migration`.
 
