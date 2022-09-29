@@ -61,7 +61,7 @@ Agora temos mais dois arquivos, `20220825191457_AddingNewTables.cs` e `202208251
 
 > Mas como e EF Core sabe o que mudou entre um comando `Add-Migration` e outro?
 
-Ele faz isso comparando o ModelSnapshot, que no nosso exemplo fica no arquivo `MyDbContextModelSnapshot.cs`, com a model construída a partir no DbContext.
+Ele faz isso comparando o ModelSnapshot, que no nosso exemplo fica no arquivo `MyDbContextModelSnapshot.cs`, com a model construída a partir do DbContext.
 
 Quando executamos o comando `Add-Migration` o EF Core instancia o DbContext em questão e constrói a sua model através do método `OnModelCreating`. Com essa model construída, ele compara ela com a model do ModelSnapshot, com a diferença ele gera o código do migração, depois ele atualiza o ModelSnapshot.
 
