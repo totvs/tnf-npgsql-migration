@@ -28,7 +28,7 @@ Durante o desenvolvimento da aplicação os desenvolvedores costumam ter um ou m
 
 Outro caso é para aplicações multitenant com isolamento por schema. Nessas aplicações toda vez que um tenant novo é provisionado, é necessário criar o schema e rodar todas a migrações apontando para o tenant.
 
-Por esse motivos temos a necessidade converter a migrações que forma feita pelo provider da Devart para migrações para o provider da Npgsql.
+Por esses motivos temos a necessidade converter as migrações.
 
 ### Como funcionam as migrações no EntityFramework Core
 
