@@ -920,7 +920,7 @@ Reverting model snapshot.
 Done.
 ```
 
-Agora falta migrar a migrações em si.
+Agora falta migrar as migrações em si.
 
 Vamos começar pela primeira, a `InitialModel`.
 
