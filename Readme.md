@@ -1059,7 +1059,7 @@ Se sua aplicação contem múltiplos DbContexts, será necessário mais cuidados
 
 Logo, aconselhamos criar um banco de dados temporário para cada DbContext.
 
-Também é possível resolver passando os nomes das tabelas que pertencem ao DbContext, basta passar o parâmetro `--scaffold-table` uma vez para cada tabela. Ou, Passar via código na hora que está configurando o DbContext na chamada `ConfigureTnfDbContext`.
+Ou então passar os nomes das tabelas que pertencem ao DbContext. Basta passar o parâmetro `--scaffold-table` uma vez para cada tabela. Ou, passar via código na hora que está configurando o DbContext na chamada `ConfigureTnfDbContext`.
 
 ```c#
 public void ConfigureDesignTimeServices(IServiceCollection serviceCollection)
