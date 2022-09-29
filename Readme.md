@@ -658,7 +658,7 @@ namespace ProviderMigration.BlogManager.EFCore.PostgreSql
 
 Nota-se que o novo DbContext não está no mesmo namespace que o DbContext original, ele está no namespace `ProviderMigration.BlogManager.EFCore.PostgreSql`. Não é só o DbContext, as entidades da model também foram colocadas no mesmo namespace. Isso é feito para evitar conflito com as classes do modelo original.
 
-Agora que temos o novo DbContext, o nosso objectivo não é substituir o DbContext da nossa aplicação por ele, mas sim usar partes dele ajustar o DbContext original o poder rodar as migrações com o provider da Npgsql.
+Agora temos o novo DbContext. Nosso objetivo não é substituir o DbContext da nossa aplicação por ele, mas sim usar partes dele para ajustar o DbContext original e poder rodar as migrações com o provider da Npgsql.
 
 Vamos começão copiando o conteúdo do método `OnModelCreating`. Mas não vamos copiar para o `OnModelCreating` do `BlogDbContext`, vamos copiar para o `OnModelCreating` do `PostgreSqlBlogDbContext`, pois esse é o DbContext especifico para PostgreSql.
 
