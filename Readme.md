@@ -22,7 +22,7 @@ services.AddTnfDbContext<BlogDbContext, PostgreSqlBlogDbContext>(conf =>
 });
 ```
 
-Porém não é tão simples assim. As migrações da sua aplicação são feitas especificamente para o provider de Devart. Isso não seria um problema se as migrações do passado nunca tivesse que ser executadas novamente, mas isso não é uma verdade.
+Porém não é tão simples assim. As migrações da sua aplicação são feitas especificamente para o provider da Devart. Isso não seria um problema se as migrações do passado nunca tivesse que ser executadas novamente, mas isso não é uma verdade.
 
 Durante o desenvolvimento da aplicação os desenvolvedores costumam ter um ou mais bancos de dados da mesma aplicação em seu ambiente local, e para isso precisam poder executar todas as migrações da aplicação.
 
