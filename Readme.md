@@ -69,7 +69,7 @@ Quando executamos o comando `Add-Migration` o EF Core instância o DbContext em 
 
 Ela serve para reverter o ModelSnapshot para uma migration anterior.
 
-Exemplo, no nosso caso de exemplo, se executarmos o comando `Remove-Migration`, vamos voltar para esta situação.
+Exemplo, no nosso caso, se executarmos o comando `Remove-Migration`, vamos voltar para esta situação.
 
 ```
 -Migrations
