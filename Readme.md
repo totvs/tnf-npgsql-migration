@@ -12,7 +12,7 @@ Vamos entender o que é necessário para migrar do provider Devart para Npgsql.
 
 > Atenção! Esse processo deve ser feito enquanto a sua aplicação ainda está no framework 3.1 (`netcoreapp3.1`).
 
-O primeiro passo seria nos registros dos DbContext da aplicação, mudar a chamada de `UsePostgreSql` para um `UseNgpsql`.
+O primeiro passo é alterar os registros dos DbContext da aplicação, mudando a chamada de `UsePostgreSql` para `UseNgpsql`.
 
 ```c#
 services.AddTnfDbContext<BlogDbContext, PostgreSqlBlogDbContext>(conf =>
