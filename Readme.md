@@ -126,7 +126,7 @@ Executamos o commando `Add-Migration AddingUserTable -Context NewMyDbContext` e 
 
 Depois executamos o mesmo processo para a migração `RemovingUserPassColumn`.
 
-Claro, esse processo não vai gerar um código que pode ser portado diretamente para o DbContext original da aplicação, pois sempre temos algumas diferenças entre os nomes no bando de dados e os nomes na model do DbContext, nome de relacionamento, mapeamentos do tipos e mais. O processo também é bem trabalhoso de se fazer manualmente e envolve muita repetição, por isso desenvolvemos uma ferramente e uma pacote para ajudar no processo.
+Contudo, esse processo não vai gerar um código que pode ser portado diretamente para o DbContext original da aplicação, pois sempre temos algumas diferenças entre os nomes no banco de dados e os nomes na model do DbContext, nome de relacionamento, mapeamentos de alguns tipos e etc. Ainda, o processo é bastante trabalhoso de se fazer manualmente e envolve muita repetição, por isso desenvolvemos uma ferramenta e um pacote para auxiliar.
 
 ## A ferramenta
 
