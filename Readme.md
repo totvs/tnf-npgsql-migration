@@ -8,7 +8,7 @@ Neste repositório disponibilizamos uma aplicação que vai servir de exemplo de
 
 ## O processo de migração
 
-Vamos entender o que é necessário fazer para migrar do provider da Devart para o da Npgsql.
+Vamos entender o que é necessário para migrar do provider Devart para Npgsql.
 
 > Atenção! Esse processo deve ser feito enquanto a sua aplicação ainda está no framework 3.1 (`netcoreapp3.1`).
 
