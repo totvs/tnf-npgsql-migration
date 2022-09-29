@@ -186,7 +186,7 @@ Veremos mais detalhes do uso tando da ferramenta quando do pacote no tutorial a 
 
 Agora vamos fazer exemplo prático de uso da ferramenta e do pacote com uma aplicação.
 
-> Use a branch `master` desse repositório como ponto de inicio para seguir o tutorial.
+> Use a branch `master` desse repositório como ponto de início para seguir o tutorial.
 
 Este é o model da aplicação:
 
