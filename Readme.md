@@ -993,7 +993,7 @@ public static class PostgreSqlServiceCollectionExtensions
 }
 ```
 
-Também precisamos remove a chamada para ativação do drive da Devart na classe `Startup`.
+Também precisamos remover a chamada para ativação do provider da Devart na classe `Startup`.
 
 ```c#
 public class Startup
