@@ -426,7 +426,7 @@ A interface `IDesignTimeServices` implementada por essa classe é uma interface 
 
 O primeiro parâmetro do método `AddTnfEFCoreProviderMigration` é a string de conexão do banco de dados que vamos usar para regerar as migrações. No exemplo estamos apontando para o banco `BlogManager_Recover`, então vamos criar um banco de dados com esse nome no PostgreSql local. Não precisamos fazer nada, além de criar o banco de dados com esse nome.
 
-Agora vamos criar uma pasta chamada `Properties` Adicionar um arquivo `AssemblyInfo.cs`.
+Agora vamos criar uma pasta chamada `Properties` e adicionar um arquivo `AssemblyInfo.cs`.
 
 Dentro do arquivo vamos por o seguinte conteúdo:
 
