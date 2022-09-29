@@ -134,7 +134,7 @@ Para ajudar nesse processo de migração desenvolvemos um pacote e uma ferrament
 
 ### Tnf.EntityFrameworkCore.Migration.Tool
 
-`Tnf.EntityFrameworkCore.Migration.Tool` foi desenvolvido com uma ferramente dotnet tool que está disponível no feed do TNF;
+`Tnf.EntityFrameworkCore.Migration.Tool` foi desenvolvido como uma ferramenta dotnet tool que está disponível no feed do TNF;
 
 A ferramenta vai auxiliar no processo de `Update-Database`, `Scaffold-DbContext` e `Add-Migration` que descrevemos acima.
 
