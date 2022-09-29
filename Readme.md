@@ -660,7 +660,7 @@ Nota-se que o novo DbContext não está no mesmo namespace que o DbContext origi
 
 Agora temos o novo DbContext. Nosso objetivo não é substituir o DbContext da nossa aplicação por ele, mas sim usar partes dele para ajustar o DbContext original e poder rodar as migrações com o provider da Npgsql.
 
-Vamos começão copiando o conteúdo do método `OnModelCreating`. Mas não vamos copiar para o `OnModelCreating` do `BlogDbContext`, vamos copiar para o `OnModelCreating` do `PostgreSqlBlogDbContext`, pois esse é o DbContext especifico para PostgreSql.
+Vamos começar copiando o conteúdo do método `OnModelCreating`. Mas não vamos copiar para o `OnModelCreating` do `BlogDbContext`, vamos copiar para o `OnModelCreating` do `PostgreSqlBlogDbContext`, pois esse é o DbContext especifico para PostgreSql.
 
 Após a copia vamos ter alguns erros de compilação porque o mapeamento das relações entre as entidades está diferente, pois no modelo original não temos a navegação bidirecional. Nesse caso basta apagar os mapeamentos que estão com erro, pois ele já são registrados no `OnModelCreating` do `BlogDbContext`.
 
