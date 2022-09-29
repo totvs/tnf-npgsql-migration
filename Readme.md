@@ -67,7 +67,7 @@ Quando executamos o comando `Add-Migration` o EF Core instância o DbContext em 
 
 > E a model do arquivo `.Designer.cs` pra que serve?
 
-Ela serve para revert o ModelSnapshot para uma migration anterior.
+Ela serve para reverter o ModelSnapshot para uma migration anterior.
 
 Exemplo, no nosso caso de exemplo, se executarmos o comando `Remove-Migration`, vamos voltar para esta situação.
 
