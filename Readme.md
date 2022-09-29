@@ -973,7 +973,7 @@ Build succeeded.
 
 Podemos ver que os scripts são bem parecidos. Temos apenas algumas alterações nos nomes dos tipos, onde um usa o alias e outro está usando o nome próprio, e uma declara a constraint da PK explicitamente enquanto o outro deixa de forma implícita.
 
-Agora já podemos mudar o drive no resto da aplicação.
+Agora já podemos mudar o provider no resto da aplicação.
 
 Vamos até o arquivo `PostgreSqlServiceCollectionExtensions.cs` mudar o provider usado pela aplicação.
 
