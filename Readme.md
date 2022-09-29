@@ -144,7 +144,7 @@ Para isso executamos o comando `dotnet tool install dotnet-ef -g --version 3.1.2
 
 Para instalar a ferramenta, executamos o comando `dotnet tool install tnf.entityframeworkcore.migration.tool -g --add-source https://www.myget.org/F/tnf/api/v3/index.json`.
 
-> Note que no final do comando adicionamos o source https://www.myget.org/F/tnf/api/v3/index.json, que é feed do TNF.
+> Note que no final do comando adicionamos o source https://www.myget.org/F/tnf/api/v3/index.json, que é o feed do TNF.
 
 ```
 C:>tnf-ef-migration -h
