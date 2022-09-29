@@ -174,7 +174,7 @@ Options:
 
 ### Tnf.EntityFrameworkCore.Migration.Design
 
-O `Tnf.EntityFrameworkCore.Migration.Design` deve ser usado no projeto onde ser vai criar os DbContext de migração. E tem as seguintes funções
+O `Tnf.EntityFrameworkCore.Migration.Design` deve ser usado no projeto onde serão criados os DbContext de migração. E tem as seguintes funções
 
 * Ajuda no mapeamento dos nomes de campos e tabela que estão no banco de dados, para os os nomes na model do DbContext;
 * Ajuda no mapeamento de alguns tipos de dados no banco dados que acabam vindo diferente da model original;
