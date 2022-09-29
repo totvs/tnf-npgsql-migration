@@ -465,7 +465,7 @@ Aqui nós mudamos a string de conexão para conectar no banco de dados temporár
 
 Para o processo de migração é importante deixar a factory de DbContext o mais simples possível. Caso contrário a ferramenta do TNF pode não conseguir carregar os assemblies envolvidos. Após a migração você pode voltar ao código original.
 
-Agora vamos rodar a ferramenta. Mas primeiro temos que instala-la.
+Agora vamos rodar a ferramenta. Basta instalá-la.
 
 Vamos instalar do ferramenta dotnet-ef primeiro com o comando `dotnet tool install dotnet-ef -g --version 3.1.26` em uma janela de cmd.
 
