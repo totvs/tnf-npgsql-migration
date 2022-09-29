@@ -138,7 +138,7 @@ Para ajudar nesse processo de migração desenvolvemos um pacote e uma ferrament
 
 A ferramenta vai auxiliar no processo de `Update-Database`, `Scaffold-DbContext` e `Add-Migration` que descrevemos acima.
 
-Entes de instalar a ferramenta, é necessário instalar a dotnet tool EF Core na versão 3.1.26.
+Antes de instalar a ferramenta, é necessário instalar a dotnet tool EF Core na versão 3.1.26.
 
 Para isso executamos o comando `dotnet tool install dotnet-ef -g --version 3.1.26`.
 
