@@ -388,7 +388,7 @@ Build started...
 Build succeeded.
 ```
 
-Vamos guardar esse script para poder comparar com script após a migração para Npgsql.
+Vamos guardar esse script para poder comparar com o script após a migração para Npgsql.
 
 Agora vamos adicionar um projeto do tipo `Console App` na nossa solution. Como o projeto e EF Core para PostgreSQL da nossa aplicação se chama `BlogManager.EFCore.PostgreSql`, vamos chamar esse novo projeto de `BlogManager.EFCore.PostgreSql.Recover`, e vamos selecionar o Framework .NET Core 3.1 para ele.
 
