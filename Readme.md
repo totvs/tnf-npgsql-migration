@@ -184,7 +184,7 @@ Veremos mais detalhes do uso tando da ferramenta quando do pacote no tutorial a 
 
 ## Tutorial
 
-Agora vamos fazer exemplo pratico de uso da ferramenta e pacote com uma aplicação.
+Agora vamos fazer exemplo prático de uso da ferramenta e do pacote com uma aplicação.
 
 > Use a branch `master` desse repositório como ponto de inicio para seguir o tutorial.
 
