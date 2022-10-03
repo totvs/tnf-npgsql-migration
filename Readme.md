@@ -180,7 +180,7 @@ O `Tnf.EntityFrameworkCore.Migration.Design` deve ser usado no projeto onde ser�
 * Ajuda no mapeamento de alguns tipos de dados no banco dados que acabam vindo diferentes da model original;
 * Fornece algumas opções que são usadas durante o processo de migração.
 
-Veremos mais detalhes do uso tanto da ferramenta quando do pacote no tutorial a seguir.
+Veremos mais detalhes do uso tanto da ferramenta quanto do pacote no tutorial a seguir.
 
 ## Tutorial
 
