@@ -98,7 +98,7 @@ Digamos que temos a seguinte lista de migrations para regerar:
 -RemovingUserPassColumn
 ```
 
-Primeiro criamos um banco de dados temporário. Depois configuramos o DbContext que queremos regerar a migrações para se conectar nesse banco de dados.
+Primeiro criamos um banco de dados temporário. Depois configuramos o DbContext que queremos regerar as migrações para se conectar nesse banco de dados.
 
 Então executamos o comando `Update-Database InitialModel -Context MyDbContext`.
 
