@@ -684,7 +684,7 @@ Primeiro vamos adicionar a seguinte `PackageReference` no projeto `BlogManager.E
 </ItemGroup>
 ```
 
-Agora vamos ajusta a classe `PostgreSqlBlogDbContextFactory`:
+Agora vamos ajustar a classe `PostgreSqlBlogDbContextFactory`:
 
 ```c#
 public class PostgreSqlBlogDbContextFactory : IDesignTimeDbContextFactory<PostgreSqlBlogDbContext>
