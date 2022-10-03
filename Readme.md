@@ -63,7 +63,7 @@ Agora temos mais dois arquivos, `20220825191457_AddingNewTables.cs` e `202208251
 
 Ele faz isso comparando o ModelSnapshot, que no nosso exemplo fica no arquivo `MyDbContextModelSnapshot.cs`, com a model construída a partir do DbContext.
 
-Quando executamos o comando `Add-Migration` o EF Core instância o DbContext em questão e constrói a sua model através do método `OnModelCreating`. Com essa model construída, ele compara com a model do ModelSnapshot, com a diferença ele gera o código da migração e depois atualiza o ModelSnapshot.
+Quando executamos o comando `Add-Migration` o EF Core instancia o DbContext em questão e constrói a sua model através do método `OnModelCreating`. Com essa model construída, ele compara com a model do ModelSnapshot, com a diferença ele gera o código da migração e depois atualiza o ModelSnapshot.
 
 > E a model do arquivo `.Designer.cs` pra que serve?
 
