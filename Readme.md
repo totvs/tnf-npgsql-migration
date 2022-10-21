@@ -399,7 +399,7 @@ Em seguida vamos adicionar o pacote `Tnf.EntityFrameworkCore.Migration.Design` e
 ```powershell
 PM> Install-Package Tnf.EntityFrameworkCore.Migration.Design
 Restoring packages for C:\Temp\BlogManager\BlogManager.EFCore.PostgreSql.Recover\BlogManager.EFCore.PostgreSql.Recover.csproj...
-Installing NuGet package Tnf.EntityFrameworkCore.Migration.Design 3.11.0.25203.
+Installing NuGet package Tnf.EntityFrameworkCore.Migration.Design 3.11.1.29102.
 //...
 Time Elapsed: 00:00:03.1602137
 ```
@@ -480,7 +480,7 @@ Depois instalamos a ferramenta do TNF com o comando `dotnet tool install tnf.ent
 ```
 C:\Temp\BlogManager>dotnet tool install tnf.entityframeworkcore.migration.tool -g --add-source https://www.myget.org/F/tnf/api/v3/index.json
 Você pode invocar a ferramenta usando o comando a seguir: tnf-ef-migration
-A ferramenta 'tnf.entityframeworkcore.migration.tool' (versão '3.11.0.25203') foi instalada com êxito.
+A ferramenta 'tnf.entityframeworkcore.migration.tool' (versão '3.11.1.29102') foi instalada com êxito.
 ```
 
 Com a ferramenta instalada, abrimos um cmd e navegamos até pasta da solution. No meu caso fica em `C:\Temp\BlogManager>`.
