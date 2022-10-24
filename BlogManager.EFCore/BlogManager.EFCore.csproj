@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Tnf.EntityFrameworkCore" Version="3.11.0.25203" />
+        <PackageReference Include="Tnf.EntityFrameworkCore" Version="3.11.1.29102" />
     </ItemGroup>
 
     <ItemGroup>
