@@ -10,7 +10,7 @@ Neste repositório disponibilizamos uma aplicação que vai servir de exemplo de
 
 Vamos entender o que é necessário para migrar do provider Devart para Npgsql.
 
-> Atenção! Esse processo deve ser feito enquanto a sua aplicação ainda está no framework 3.1 (`netcoreapp3.1`).
+> **Atenção!** Esse processo deve ser feito enquanto a sua aplicação ainda está no framework 3.1 (`netcoreapp3.1`).
 
 O primeiro passo é alterar os registros dos DbContext da aplicação, mudando a chamada de `UsePostgreSql` para `UseNgpsql`.
 
@@ -21,6 +21,11 @@ services.AddTnfDbContext<BlogDbContext, PostgreSqlBlogDbContext>(conf =>
     conf.DbContextOptions.UseNpgsql(conf.ConnectionString);
 });
 ```
+
+> **Atenção!** A opção UseNpgSql só é acessível após a instalação do pacote **Tnf.EntityFrameworkCore.Migration.Design**. 
+> Não se preocupe, a instalação desse pacote será realizada ao longo desta documentação.
+
+
 
 Porém não é tão simples assim. As migrações da sua aplicação são feitas especificamente para o provider da Devart. Isso não seria um problema se as migrações do passado nunca tivessem que ser executadas novamente, mas isso não é uma verdade.
 
